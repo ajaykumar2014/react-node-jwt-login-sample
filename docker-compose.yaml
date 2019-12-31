@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  jwt-auth:
+    container_name: jwt-auth
+    build:
+      context: ./node-jwt-auth
+    ports:
+      - "3001:3000"
+    environment:
+      - DB_CONNECTION_URL=mongodb://mongo:27017  
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - data-volume:/data/db
+    ports:
+      - 27017:27017
+
+volumes:
+  data-volume:      
