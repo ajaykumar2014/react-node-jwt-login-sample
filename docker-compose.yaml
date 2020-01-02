@@ -1,6 +1,17 @@
 version: "3"
 
 services:
+  userprofile-ui-sample:
+    container_name: userprofile-ui-sample
+    build:
+      context: ./userprofile-ui-sample
+      dockerfile: ./Dockerfile
+    ports:
+        - "8080:8080"
+    environment:
+        - apiUrl=http://localhost:3001
+    links:
+        - jwt-auth
   jwt-auth:
     container_name: jwt-auth
     build:
@@ -8,7 +19,7 @@ services:
     ports:
       - "3001:3000"
     environment:
-      - DB_CONNECTION_URL=mongodb://mongo:27017  
+      - DB_CONNECTION_URL=mongodb://mongo:27017
     links:
       - mongo
   mongo:
@@ -20,4 +31,4 @@ services:
       - 27017:27017
 
 volumes:
-  data-volume:      
+  data-volume:
